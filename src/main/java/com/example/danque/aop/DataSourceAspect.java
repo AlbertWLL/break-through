@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 @Component
 public class DataSourceAspect implements Ordered {
 
-    @Pointcut("execution (* com.example.danque.api.service.*(..))")
+    @Pointcut("execution (* com.example.danque.api.service.impl..*.*(..))")
     public void dataSourcePointCut() {
     }
 
