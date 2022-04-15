@@ -1,7 +1,7 @@
 package com.example.danque.aop;
 
 import com.example.danque.annotation.DBSwitch;
-import com.example.danque.common.DataSourceEnum;
+import com.example.danque.common.enums.DataSourceEnum;
 import com.example.danque.config.DynamicDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -30,21 +30,20 @@ public class DataSourceAspect implements Ordered {
         DBSwitch ds = method.getAnnotation(DBSwitch.class);
         if (ds == null) {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getCode());
-            log.debug("set datasource is " + DataSourceEnum.MASTER.getCode());
+            log.info("set datasource is " + DataSourceEnum.MASTER.getCode());
         } else {
             DynamicDataSource.setDataSource(ds.name());
-            log.debug("set datasource is " + ds.name());
+            log.info("set datasource is " + ds.name());
         }
         try {
             return point.proceed();
         }catch (Exception e){
-            log.error("DataSourceAspect-around接口调用异常：{}",e);
+            log.info("DataSourceAspect-around接口调用异常：{}",e);
             DynamicDataSource.clearDataSource();
-            log.debug("clean datasource");
-            return e;
+            throw e;
         }finally {
             DynamicDataSource.clearDataSource();
-            log.debug("clean datasource");
+            log.info("clean datasource success!");
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.danque.config;
 
 
-import com.example.danque.common.DataSourceEnum;
+import com.example.danque.common.enums.DataSourceEnum;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

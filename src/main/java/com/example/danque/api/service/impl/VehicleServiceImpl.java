@@ -32,4 +32,10 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle = vehicleMapper.selectById(id);
         return JSON.toJSONString(vehicle);
     }
+
+    @Override
+    @DBSwitch(name = "MASTER")
+    public void saveVehicleInfo(Vehicle vehicle) {
+        vehicleMapper.insert(vehicle);
+    }
 }

@@ -1,11 +1,10 @@
 package com.example.danque.api.controller;
 
 import com.example.danque.api.service.VehicleService;
+import com.example.danque.common.Result;
+import com.example.danque.entity.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vehicle")
@@ -29,7 +28,14 @@ public class VehicleController {
     }
 
     @GetMapping("/getVehicleFromSlave")
-    public String getVehicleFromSlave(@RequestParam("id") long id) {
-        return vehicleService.getVehicleFromSlave(id);
+    public Result getVehicleFromSlave(@RequestParam("id") long id) {
+        String vehicleFromSlave = vehicleService.getVehicleFromSlave(id);
+        return Result.success(vehicleFromSlave);
+    }
+
+    @PostMapping("/saveVehicleInfo")
+    public Result SaveVehicleInfo(@RequestBody Vehicle vehicle) {
+        vehicleService.saveVehicleInfo(vehicle);
+        return Result.success(null);
     }
 }

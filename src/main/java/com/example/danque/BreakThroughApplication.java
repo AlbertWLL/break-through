@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class BreakThroughApplication {
 
     public static void main(String[] args) {
-                SpringApplication.run(BreakThroughApplication.class, args);
+        SpringApplication.run(BreakThroughApplication.class, args);
 
     }
 

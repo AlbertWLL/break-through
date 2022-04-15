@@ -1,4 +1,4 @@
-package com.example.danque.common;
+package com.example.danque.common.enums;
 
 /**
  * 数据源枚举类
