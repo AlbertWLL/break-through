@@ -2,8 +2,11 @@ package com.example.danque.api.controller;
 
 import com.example.danque.api.service.VehicleService;
 import com.example.danque.common.Result;
+import com.example.danque.common.cache.CachedData;
 import com.example.danque.entity.Vehicle;
+import com.example.danque.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +15,12 @@ public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping("/getServiceInfo")
     public String getServiceInfo() {
@@ -29,8 +38,8 @@ public class VehicleController {
 
     @GetMapping("/getVehicleFromSlave")
     public Result getVehicleFromSlave(@RequestParam("id") long id) {
-        String vehicleFromSlave = vehicleService.getVehicleFromSlave(id);
-        return Result.success(vehicleFromSlave);
+        CachedData<Vehicle> vehicleFromSlave = vehicleService.getVehicleFromSlave(id);
+        return Result.success(vehicleFromSlave.getPayload());
     }
 
     @PostMapping("/saveVehicleInfo")

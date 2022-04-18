@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.example.danque.annotation.DBSwitch;
 import com.example.danque.api.mapper.VehicleMapper;
 import com.example.danque.api.service.VehicleService;
+import com.example.danque.common.cache.CachedData;
+import com.example.danque.common.constants.RedisConstants;
 import com.example.danque.entity.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,9 +31,10 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @DBSwitch(name = "SLAVE")
-    public String getVehicleFromSlave(long id) {
+    @Cacheable(cacheNames = RedisConstants.CACHE_NAME,keyGenerator = "keyGenerator")
+    public CachedData<Vehicle> getVehicleFromSlave(long id) {
         Vehicle vehicle = vehicleMapper.selectById(id);
-        return JSON.toJSONString(vehicle);
+        return new CachedData<>(vehicle);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Vehicle implements Serializable {
     private static final long serialVersionUID = 4544057081169003488L;
 
     @TableId(type = IdType.AUTO)
-    private long id;
+    private Long id;
     private long user_id;
     private long contact_id;
     private String vin;
