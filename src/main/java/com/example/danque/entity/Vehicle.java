@@ -21,20 +21,20 @@ public class Vehicle implements Serializable {
 
     @TableId(type = IdType.AUTO)
     private Long id;
-    private long user_id;
-    private long contact_id;
+    private long userId;
+    private long contactId;
     private String vin;
-    private String pin_code;
-    private String enger_no;
-    private String vehicle_name;
-    private long photo_id;
-    private String license_no;
-    private String license_color;
-    private long brand_id;
-    private long market_id;
-    private String material_code;
-    private Date bind_time;
-    private long bind_status;
+    private String pinCode;
+    private String engerNo;
+    private String vehicleName;
+    private long photoId;
+    private String licenseNo;
+    private String licenseColor;
+    private long brandId;
+    private long marketId;
+    private String materialCode;
+    private Date bindTime;
+    private long bindStatus;
     private String description;
     private long status;
     private long create_by;

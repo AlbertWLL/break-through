@@ -15,4 +15,6 @@ public interface VehicleService {
     public CachedData<Vehicle> getVehicleFromSlave(long id);
 
     void saveVehicleInfo(Vehicle vehicle);
+
+    void updateVehicleInfo(Vehicle vehicle);
 }

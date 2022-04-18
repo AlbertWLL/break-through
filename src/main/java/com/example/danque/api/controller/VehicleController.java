@@ -42,6 +42,12 @@ public class VehicleController {
         return Result.success(vehicleFromSlave.getPayload());
     }
 
+    @PostMapping("/updateVehicleInfo")
+    public Result updateVehicleInfo(@RequestBody Vehicle vehicle) {
+        vehicleService.updateVehicleInfo(vehicle);
+        return Result.success(null);
+    }
+
     @PostMapping("/saveVehicleInfo")
     public Result SaveVehicleInfo(@RequestBody Vehicle vehicle) {
         vehicleService.saveVehicleInfo(vehicle);
