@@ -8,6 +8,7 @@ import com.example.danque.api.service.VehicleService;
 import com.example.danque.common.cache.CachedData;
 import com.example.danque.common.constants.RedisConstants;
 import com.example.danque.entity.Vehicle;
+import com.example.danque.mq.DanqueMQPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,8 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    @Autowired(required = false)
+    @Autowired
     private VehicleMapper vehicleMapper;
+
+    @Autowired
+    private DanqueMQPublisher danqueMQPublisher;
 
     @Override
     @DBSwitch(name = "MASTER")
@@ -59,5 +63,6 @@ public class VehicleServiceImpl implements VehicleService {
         if(update > 0){
             System.out.println("update vehicle success!");
         }
+        danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));
     }
 }
