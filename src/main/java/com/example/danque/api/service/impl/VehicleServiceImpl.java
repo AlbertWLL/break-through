@@ -9,6 +9,7 @@ import com.example.danque.common.cache.CachedData;
 import com.example.danque.common.constants.RedisConstants;
 import com.example.danque.entity.Vehicle;
 import com.example.danque.mq.DanqueMQPublisher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @desc
  */
 @Service
+@Slf4j
 public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
@@ -45,12 +47,14 @@ public class VehicleServiceImpl implements VehicleService {
         return new CachedData<>(vehicle);
     }
 
+
     @Override
     @DBSwitch(name = "MASTER")
     @Transactional(rollbackFor = Exception.class,propagation= Propagation.SUPPORTS)
     public void saveVehicleInfo(Vehicle vehicle) {
         vehicleMapper.insert(vehicle);
     }
+
 
     @Override
     @DBSwitch(name = "SLAVE")
@@ -63,6 +67,10 @@ public class VehicleServiceImpl implements VehicleService {
         if(update > 0){
             System.out.println("update vehicle success!");
         }
-        danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));
+        try {
+            danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));
+        } catch (Exception e) {
+            log.error("VehicleServiceImpl#updateVehicleInfo()-发送MQ消息失败：{}", e);
+        }
     }
 }
