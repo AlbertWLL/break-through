@@ -68,7 +68,10 @@ public class VehicleServiceImpl implements VehicleService {
             System.out.println("update vehicle success!");
         }
         try {
-            danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));
+            for(long i = 3; i <= 10; i ++){
+                vehicle.setId(i);
+                if (false) danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));
+            }
         } catch (Exception e) {
             log.error("VehicleServiceImpl#updateVehicleInfo()-发送MQ消息失败：{}", e);
         }

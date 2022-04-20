@@ -3,6 +3,7 @@ package com.example.danque.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Data
 @TableName(value = "tb_vehicle")
+@Builder
 public class Vehicle implements Serializable {
 
     private static final long serialVersionUID = 4544057081169003488L;
