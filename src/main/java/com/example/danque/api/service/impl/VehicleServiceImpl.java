@@ -26,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class VehicleServiceImpl implements VehicleService {
 
+    public static final String VEHICLE_LOCK_KEY = "danque-vehicle-lk-";
+
     @Autowired
     private VehicleMapper vehicleMapper;
 
@@ -42,6 +44,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @DBSwitch(name = "SLAVE")
     @Cacheable(cacheNames = RedisConstants.CACHE_NAME,key = " 'danque:break-through:vehicle_id_' + #id")
+//    @Cacheable(cacheNames = RedisConstants.CACHE_NAME,key = VEHICLE_LOCK_KEY)
     public CachedData<Vehicle> getVehicleFromSlave(long id) {
         Vehicle vehicle = vehicleMapper.selectById(id);
         return new CachedData<>(vehicle);
