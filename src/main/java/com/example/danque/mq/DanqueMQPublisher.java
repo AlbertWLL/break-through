@@ -25,10 +25,10 @@ public class DanqueMQPublisher {
     private String routingkey;
 
     public void sendMessage(String message) throws Exception {
-        log.info("MQ发送的数据为：【{}】",message);
+        log.info("DanqueMQPublisher-sendMessage，MQ发送的数据为：【{}】",message);
         try {
             rabbitTemplate.convertAndSend(exchange, routingkey,message);
-            log.info("MQ发送的成功，exchange：【{}】，routingkey：【{}】，消息为：【{}】",exchange,routingkey,message);
+            log.info("DanqueMQPublisher-sendMessage，MQ发送的成功，exchange：【{}】，routingkey：【{}】，消息为：【{}】",exchange,routingkey,message);
         }catch (Exception e){
             log.error("MQ发送数据失败，异常信息为：{}", e);
             throw new Exception("DanqueMQPublisher-sendMessage-error:{}", e);

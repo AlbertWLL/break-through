@@ -7,10 +7,10 @@ import java.util.Map;
 
 /**
  * @ClassName DynamicDataSource
- * @Description TODO
+ * @Description 动态数据源配置
  * @Author lulu.wang.o
  * @Email wlljava@163.com
- * @Date 2021/3/12 13:20
+ * @Date 2022/3/12 13:20
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
