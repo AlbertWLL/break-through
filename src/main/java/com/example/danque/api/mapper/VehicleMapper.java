@@ -1,7 +1,7 @@
 package com.example.danque.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.danque.entity.Vehicle;
+import com.example.danque.api.entity.Vehicle;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

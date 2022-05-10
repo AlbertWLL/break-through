@@ -3,11 +3,11 @@ package com.example.danque.api.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.danque.annotation.DBSwitch;
+import com.example.danque.api.entity.Vehicle;
 import com.example.danque.api.mapper.VehicleMapper;
 import com.example.danque.api.service.VehicleService;
 import com.example.danque.common.cache.CachedData;
 import com.example.danque.common.constants.RedisConstants;
-import com.example.danque.entity.Vehicle;
 import com.example.danque.mq.DanqueMQPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +71,7 @@ public class VehicleServiceImpl implements VehicleService {
             System.out.println("update vehicle success!");
         }
         try {
+            //发送MQ消息
             for(long i = 3; i <= 10; i ++){
                 vehicle.setId(i);
                 if (false) danqueMQPublisher.sendMessage(JSON.toJSONString(vehicle));

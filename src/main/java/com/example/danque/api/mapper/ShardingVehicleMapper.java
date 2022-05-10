@@ -1,7 +1,7 @@
 package com.example.danque.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.danque.api.entity.VehicleMQRecord;
+import com.example.danque.api.entity.ShardingVehicle;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface VehicleMQRecordMapper extends BaseMapper<VehicleMQRecord> {
+public interface ShardingVehicleMapper extends BaseMapper<ShardingVehicle> {
 
 }

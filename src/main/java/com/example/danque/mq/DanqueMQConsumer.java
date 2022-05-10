@@ -2,7 +2,7 @@ package com.example.danque.mq;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.danque.api.mapper.VehicleMQRecordMapper;
-import com.example.danque.entity.VehicleMQRecord;
+import com.example.danque.api.entity.VehicleMQRecord;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;

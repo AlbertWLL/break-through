@@ -1,7 +1,7 @@
 package com.example.danque.api.service;
 
+import com.example.danque.api.entity.Vehicle;
 import com.example.danque.common.cache.CachedData;
-import com.example.danque.entity.Vehicle;
 
 /**
  * @author danque

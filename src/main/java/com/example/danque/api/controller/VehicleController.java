@@ -1,20 +1,28 @@
 package com.example.danque.api.controller;
 
+import com.example.danque.api.entity.ShardingVehicle;
 import com.example.danque.api.service.VehicleService;
+import com.example.danque.api.shardingsphereservice.ShardingService;
 import com.example.danque.common.Result;
 import com.example.danque.common.cache.CachedData;
-import com.example.danque.entity.Vehicle;
+import com.example.danque.api.entity.Vehicle;
 import com.example.danque.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 动态数据源 + redis缓存 + rabbitMQ练习
+ */
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private ShardingService shardingService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -49,8 +57,19 @@ public class VehicleController {
     }
 
     @PostMapping("/saveVehicleInfo")
-    public Result SaveVehicleInfo(@RequestBody Vehicle vehicle) {
+    public Result saveVehicleInfo(@RequestBody Vehicle vehicle) {
         vehicleService.saveVehicleInfo(vehicle);
         return Result.success(null);
     }
+
+    /**
+     * shardingSphere-jdbc 动态数据源
+     */
+    @GetMapping("/getShardingSphereVehicleFromSlave")
+    public Result getShardingSphereVehicleFromSlave(@RequestParam("id") long id) {
+        ShardingVehicle vehicleFromSlave = shardingService.getShardingSphereVehicleFromSlave(id);
+        return Result.success(vehicleFromSlave);
+    }
 }
+
+

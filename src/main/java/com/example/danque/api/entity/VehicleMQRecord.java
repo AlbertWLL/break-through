@@ -1,4 +1,4 @@
-package com.example.danque.entity;
+package com.example.danque.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -14,10 +14,10 @@ import java.util.Date;
  * @desc
  */
 @Data
-@TableName(value = "tb_vehicle")
-public class Vehicle implements Serializable {
+@TableName(value = "tb_vehicle_mq_record")
+public class VehicleMQRecord implements Serializable {
 
-    private static final long serialVersionUID = 4544057081169003488L;
+    private static final long serialVersionUID = -4544057081169003488L;
 
     @TableId(type = IdType.AUTO)
     private Long id;
