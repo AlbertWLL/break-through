@@ -1,6 +1,5 @@
 package com.example.danque.api.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.danque.annotation.DBSwitch;
 import com.example.danque.api.entity.Company;
 import com.example.danque.api.mapper.CompanyMapper;
