@@ -22,7 +22,7 @@ public class ShardingSphereJdbcDynamicDataSource {
 
     @Bean("shardingsphereMasterDataSource")
     @ConfigurationProperties(prefix = "spring.shardingsphere.datasource.master")
-    @Primary
+//    @Primary
     public DataSource masterDataSource(){
         return new HikariDataSource();
     }

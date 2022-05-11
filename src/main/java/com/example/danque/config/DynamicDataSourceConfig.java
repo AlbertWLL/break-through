@@ -32,7 +32,7 @@ public class DynamicDataSourceConfig {
     }
 
     @Bean
-//    @Primary
+    @Primary
     public DynamicDataSource dataSource(@Qualifier("masterDataSource")DataSource masterDataSource,@Qualifier("clusterDataSource")DataSource clusterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>(2);
         targetDataSources.put(DataSourceEnum.MASTER.getCode(), masterDataSource);
