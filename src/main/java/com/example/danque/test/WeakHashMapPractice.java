@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class MapTest {
+public class WeakHashMapPractice {
     static Map wMap = new WeakHashMap();
     static Map map = new HashMap();
 
