@@ -8,6 +8,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -31,13 +32,18 @@ public class DynamicDataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
+    @Bean("dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(@Qualifier("masterDataSource")DataSource masterDataSource,@Qualifier("clusterDataSource")DataSource clusterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>(2);
         targetDataSources.put(DataSourceEnum.MASTER.getCode(), masterDataSource);
         targetDataSources.put(DataSourceEnum.SLAVE.getCode(), clusterDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
+    }
+
+    @Bean("dynamicDataSourceTM")
+    public DataSourceTransactionManager slaveTransactionManager(@Qualifier("dynamicDataSource") DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
     }
 
 }

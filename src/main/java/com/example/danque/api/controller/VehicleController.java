@@ -24,12 +24,6 @@ public class VehicleController {
     @Autowired
     private ShardingService shardingService;
 
-    @Autowired
-    private RedisUtil redisUtil;
-
-    @Autowired
-    private RedisTemplate redisTemplate;
-
     @GetMapping("/getServiceInfo")
     public String getServiceInfo() {
         String mysql = "userName:root, PassWord:不告诉你";
@@ -39,23 +33,52 @@ public class VehicleController {
         return mysql + redis + nginx + rabbitMQ;
     }
 
+    /**
+     * 主库数据查询
+     * @param id
+     * @return
+     */
     @GetMapping("/getVehicleFromMaster")
     public String getVehicleFromMaster(@RequestParam("id") long id) {
         return vehicleService.getVehicleFromMaster(id);
     }
 
+    /**
+     * 利用redisson 做接口限流
+     * @param id
+     * @return
+     */
+    @GetMapping("/getVehicleFromMasterByRateLimiter")
+    public String getVehicleFromMasterByRateLimiter(@RequestParam("id") long id) {
+        return vehicleService.getVehicleFromMasterByRateLimiter(id);
+    }
+
+    /**
+     * 从库数据查询
+     * @param id
+     * @return
+     */
     @GetMapping("/getVehicleFromSlave")
     public Result getVehicleFromSlave(@RequestParam("id") long id) {
         CachedData<Vehicle> vehicleFromSlave = vehicleService.getVehicleFromSlave(id);
         return Result.success(vehicleFromSlave.getPayload());
     }
 
+    /**
+     * 更新从库数据
+     * @param vehicle
+     * @return
+     */
     @PostMapping("/updateVehicleInfo")
     public Result updateVehicleInfo(@RequestBody Vehicle vehicle) {
-        vehicleService.updateVehicleInfo(vehicle);
-        return Result.success(null);
+        return vehicleService.updateVehicleInfo(vehicle);
     }
 
+    /**
+     * 保存主库数据
+     * @param vehicle
+     * @return
+     */
     @PostMapping("/saveVehicleInfo")
     public Result saveVehicleInfo(@RequestBody Vehicle vehicle) {
         vehicleService.saveVehicleInfo(vehicle);

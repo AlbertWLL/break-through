@@ -1,6 +1,7 @@
 package com.example.danque.api.service;
 
 import com.example.danque.api.entity.Vehicle;
+import com.example.danque.common.Result;
 import com.example.danque.common.cache.CachedData;
 
 /**
@@ -12,9 +13,11 @@ public interface VehicleService {
 
     public String getVehicleFromMaster(long id);
 
+    public String getVehicleFromMasterByRateLimiter(long id);
+
     public CachedData<Vehicle> getVehicleFromSlave(long id);
 
     void saveVehicleInfo(Vehicle vehicle);
 
-    void updateVehicleInfo(Vehicle vehicle);
+    Result updateVehicleInfo(Vehicle vehicle);
 }
