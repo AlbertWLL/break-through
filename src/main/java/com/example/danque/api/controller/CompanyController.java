@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sharding")
-public class ShardingController {
+public class CompanyController {
 
     @Autowired
     private CompanyService shardingService;

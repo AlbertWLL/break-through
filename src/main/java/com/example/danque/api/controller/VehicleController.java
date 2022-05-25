@@ -1,14 +1,14 @@
 package com.example.danque.api.controller;
 
+import com.example.danque.annotation.RequestRateLimiter;
 import com.example.danque.api.entity.ShardingVehicle;
+import com.example.danque.api.entity.Vehicle;
 import com.example.danque.api.service.VehicleService;
 import com.example.danque.api.shardingsphereservice.ShardingService;
 import com.example.danque.common.Result;
 import com.example.danque.common.cache.CachedData;
-import com.example.danque.api.entity.Vehicle;
-import com.example.danque.util.RedisUtil;
+import org.redisson.api.RateIntervalUnit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -49,6 +49,7 @@ public class VehicleController {
      * @return
      */
     @GetMapping("/getVehicleFromMasterByRateLimiter")
+    @RequestRateLimiter(key = "getVehicleFromMasterByRateLimiter",rate = 10l ,rateInterval = 1l,timeUnit = RateIntervalUnit.SECONDS)
     public String getVehicleFromMasterByRateLimiter(@RequestParam("id") long id) {
         return vehicleService.getVehicleFromMasterByRateLimiter(id);
     }
