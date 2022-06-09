@@ -1,5 +1,6 @@
 package com.example.danque.config;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.example.danque.common.constants.RedisConstants;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.interceptor.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -31,7 +33,8 @@ public class RedisConfiguration implements CachingConfigurer {
     private RedisConnectionFactory factory;
 
     @Bean
-    @ConditionalOnMissingBean(name = "redisTemplate")
+    @DependsOn
+//    @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
@@ -42,7 +45,7 @@ public class RedisConfiguration implements CachingConfigurer {
         redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer);
 
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(new FastJsonRedisSerializer<>(Object.class));
         return redisTemplate;
     }
 

@@ -1,8 +1,6 @@
 package com.example.danque.test;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.function.Function;
 
 /**
@@ -11,6 +9,19 @@ import java.util.function.Function;
 public class CompletableFuturePractice {
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		ExecutorService executorService1 = Executors.newFixedThreadPool(2);
+		ExecutorService executorService2 = Executors.newCachedThreadPool();
+		Executors.newSingleThreadExecutor();
+		Executors.newScheduledThreadPool(1);
+		ExecutorService executorService = Executors.newWorkStealingPool(3);
+
+		executorService.awaitTermination(3,TimeUnit.SECONDS);
+		executorService.shutdown();
+		executorService.shutdownNow();
+		//设置队列的大小
+		ThreadPoolExecutor threadPoolExecutor =
+				new ThreadPoolExecutor(10,100,5,
+				TimeUnit.MILLISECONDS,new ArrayBlockingQueue<>(100),new ThreadPoolExecutor.DiscardPolicy());
 		/**
 		 * 线程类
 		 */
